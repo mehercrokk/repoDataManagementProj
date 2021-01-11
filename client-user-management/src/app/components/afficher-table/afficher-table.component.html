@@ -1,0 +1,128 @@
+<div class="container">
+  <div class="card card-container">
+    <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+<!--    <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />-->
+<!--    <p id="profile-name" class="profile-name-card"></p>-->
+
+    <form name="form-signin" (ngSubmit)="f.form.valid && affichertable()" #f="ngForm" novalidate>
+      <div class="alert alert-danger" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+      <span id="reauth-email" class="reauth-email"></span>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+        <label for="user">Address</label>
+        <input type="text" class="form-control input-text-custom" id="user" name="username" [(ngModel)]="user.user" #username="ngModel" required />
+        <div *ngIf="f.submitted && !username.valid" class="help-block">An valid username is required.</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+        <label for="user">User</label>
+        <input type="text" class="form-control input-text-custom" id="user" name="username" [(ngModel)]="user.user" #username="ngModel" required />
+        <div *ngIf="f.submitted && !username.valid" class="help-block">An valid username is required.</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+        <label for="password">Password</label>
+        <input type="password" class="form-control input-text-custom" id="password" name="password" [(ngModel)]="user.password" #password="ngModel" required />
+        <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required.</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+        <label for="nomtable">Base de donnée</label>
+        <input type="password" class="form-control input-text-custom" id="nomtable" name="password" [(ngModel)]="user.nomtable" #password="ngModel" required />
+        <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required.</div>
+      </div>
+      <div id="remember" class="checkbox">
+
+      </div>
+      <button class="btn btn-lg btn-primary btn-block btn-signin form-submit-button" type="submit">Voir les tables</button>
+
+    </form><!-- /form -->
+<!--    <a [routerLink]="['/register']" class="btn btn-link">Create New Account!</a>-->
+
+  </div><!-- /card-container -->
+
+<!--  <div class="form-group form-inline">-->
+<!--    Full text search: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm"/>-->
+<!--    <span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>-->
+<!--  </div>-->
+
+<!--  <table class="table table-striped">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--      <th scope="col">#</th>-->
+<!--      <th scope="col" sortable="name" (sort)="onSort($event)">Country</th>-->
+<!--      <th scope="col" sortable="area" (sort)="onSort($event)">Area</th>-->
+<!--      <th scope="col" sortable="population" (sort)="onSort($event)">Population</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr *ngFor="let country of countries$ | async">-->
+<!--      <th scope="row">{{ country.id }}</th>-->
+<!--      <td>-->
+<!--        <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag" class="mr-2" style="width: 20px">-->
+<!--        <ngb-highlight [result]="country.name" [term]="service.searchTerm"></ngb-highlight>-->
+<!--      </td>-->
+<!--      <td><ngb-highlight [result]="country.area | number" [term]="service.searchTerm"></ngb-highlight></td>-->
+<!--      <td><ngb-highlight [result]="country.population | number" [term]="service.searchTerm"></ngb-highlight></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+
+<!--  <div class="d-flex justify-content-between p-2">-->
+<!--    <ngb-pagination-->
+<!--      [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">-->
+<!--    </ngb-pagination>-->
+
+<!--    <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">-->
+<!--      <option [ngValue]="2">2 items per page</option>-->
+<!--      <option [ngValue]="4">4 items per page</option>-->
+<!--      <option [ngValue]="6">6 items per page</option>-->
+<!--    </select>-->
+<!--  </div>-->
+  <div>
+    <data-table
+      [title]="'Employees'"
+      [items]="items"
+      [itemCount]="itemCount"
+      [pageLimits]="limits"
+      (reload)="reloadItems($event)"
+      (rowClick)="rowClick($event)"
+      (rowDoubleClick)="rowDoubleClick($event)"
+      [rowTooltip]="rowTooltip" >
+      <data-table-column
+        [property]="'name'"
+        [header]="'Name'"
+        [sortable]="true"
+        [resizable]="true">
+      </data-table-column>
+      <data-table-column
+        [property]="'date'"
+        [header]="'Date'"
+        [sortable]="true">
+        <ng-template #dataTableCell let-item="item">
+          <span>{{ item.date | date:'yyyy-MM-dd' }}</span>
+        </ng-template>
+      </data-table-column>
+      <data-table-column
+        property="phoneNumber"
+        header="Phone number"
+        width="150px">
+      </data-table-column>
+      <data-table-column
+        [property]="'jobTitle'"
+        [header]="'Job title'"
+        [visible]="false">
+      </data-table-column>
+      <data-table-column
+        [property]="'active'"
+        [header]="'Active'"
+        [width]="100"
+        [resizable]="true">
+        <ng-template #dataTableHeader let-item="item">
+          <span style="color: rgb(232, 0, 0)">Active</span>
+        </ng-template>
+        <ng-template #dataTableCell let-item="item">
+                <span style="color: grey">
+                <span class="fa fa-check" *ngIf="item.active"></span>
+                <span class="fa fa-times" *ngIf="!item.active"></span>
+                </span>
+        </ng-template>
+      </data-table-column>
+    </data-table>
+  </div>
